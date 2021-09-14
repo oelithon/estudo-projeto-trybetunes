@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { createUser } from '../services/userAPI';
 
 class Login extends Component {
   constructor() {
@@ -6,13 +7,22 @@ class Login extends Component {
 
     this.state = {
       statusButton: true,
+      nameInput: '',
     };
   }
 
-  statusButton = (event) => {
+  statusButtonFunction = (event) => {
     const minNumber = 3;
     this.setState({
       statusButton: event.target.value.length < minNumber,
+      nameInput: event.target.value,
+    });
+  }
+
+  handleClick = () => {
+    const { nameInput } = this.state;
+    createUser({
+      name: nameInput,
     });
   }
 
@@ -26,13 +36,14 @@ class Login extends Component {
             <input
               type="text"
               data-testid="login-name-input"
-              onChange={ this.statusButton }
+              onChange={ this.statusButtonFunction }
             />
           </label>
           <button
             type="submit"
             data-testid="login-submit-button"
             disabled={ statusButton }
+            onClick={ this.handleClick }
           >
             Entrar
           </button>
