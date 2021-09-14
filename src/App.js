@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
-class App extends React.Component {
+class App extends Component {
   render() {
-    return (<p>TrybeTunes</p>);
+    return (
+      <BrowserRouter>
+        <main>
+          <p>TrybeTunes</p>
+        </main>
+      </BrowserRouter>
+    );
   }
 }
 
