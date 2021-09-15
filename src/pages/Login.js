@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { createUser } from '../services/userAPI';
+import Loading from './Loading';
 
 class Login extends Component {
   constructor() {
@@ -8,6 +10,8 @@ class Login extends Component {
     this.state = {
       statusButton: true,
       nameInput: '',
+      loading: false,
+      authentication: false,
     };
   }
 
@@ -19,15 +23,30 @@ class Login extends Component {
     });
   }
 
-  handleClick = () => {
+  handleClick = async () => {
     const { nameInput } = this.state;
-    createUser({
+    this.setState({
+      loading: true,
+    });
+    await createUser({
       name: nameInput,
+    });
+    this.setState({
+      loading: false,
+      authentication: true,
     });
   }
 
   render() {
-    const { statusButton } = this.state;
+    const { statusButton, loading, authentication } = this.state;
+    if (loading) {
+      return <Loading />;
+    }
+    if (authentication) {
+      return (
+        <Redirect to="/search" />
+      );
+    }
     return (
       <div data-testid="page-login">
         <form>
