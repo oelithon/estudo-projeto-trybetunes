@@ -24,8 +24,6 @@ class Header extends Component {
     const getFunctionAPI = await getUser();
     this.setState({
       userName: getFunctionAPI.name,
-    });
-    this.setState({
       loading: false,
     });
   }
