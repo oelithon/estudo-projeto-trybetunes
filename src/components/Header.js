@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getUser } from '../services/userAPI';
+import Loading from '../pages/Loading';
 
 class Header extends Component {
   constructor() {
@@ -7,6 +8,7 @@ class Header extends Component {
 
     this.state = {
       userName: '',
+      loading: false,
     };
   }
 
@@ -15,15 +17,24 @@ class Header extends Component {
   }
 
   getUserName = async () => {
+    this.setState({
+      loading: true,
+    });
     const getFunctionAPI = await getUser();
     console.log(getFunctionAPI);
     this.setState({
       userName: getFunctionAPI.name,
     });
+    this.setState({
+      loading: false,
+    });
   }
 
   render() {
-    const { userName } = this.state;
+    const { userName, loading } = this.state;
+    if (loading) {
+      return <Loading />;
+    }
     return (
       <header data-testid="header-component">
         <p data-testid="header-user-name">{ userName }</p>
