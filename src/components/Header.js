@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
 import Loading from '../pages/Loading';
 
@@ -21,7 +22,6 @@ class Header extends Component {
       loading: true,
     });
     const getFunctionAPI = await getUser();
-    console.log(getFunctionAPI);
     this.setState({
       userName: getFunctionAPI.name,
     });
@@ -37,6 +37,9 @@ class Header extends Component {
     }
     return (
       <header data-testid="header-component">
+        <Link to="/search" data-testid="link-to-search" />
+        <Link to="/favorites" data-testid="link-to-favorites" />
+        <Link to="/profile" data-testid="link-to-profile" />
         <p data-testid="header-user-name">{ userName }</p>
       </header>
     );
