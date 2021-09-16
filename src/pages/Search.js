@@ -12,6 +12,7 @@ class Search extends Component {
       inputValue: '',
       artistName: '',
       loading: false,
+      musicList: '',
     });
   }
 
@@ -24,7 +25,7 @@ class Search extends Component {
   }
 
   searchButton = async () => {
-    const { inputValue } = this.state;
+    const { inputValue, musicList } = this.state;
     this.setState((prevState) => ({
       artistName: prevState.inputValue,
       inputValue: '',
@@ -32,8 +33,10 @@ class Search extends Component {
     }));
     const getAPISearchMusic = await searchAlbumsAPI(inputValue);
     this.setState({
+      musicList: getAPISearchMusic,
       loading: false,
     });
+    console.log(musicList);
   }
 
   render() {
