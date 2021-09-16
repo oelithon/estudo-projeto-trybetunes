@@ -41,33 +41,33 @@ class Search extends Component {
     return (
       <div data-testid="page-search">
         <Header />
-        <form>
-          <label htmlFor="search-artist-input">
-            <input
-              type="text"
-              data-testid="search-artist-input"
-              value={ inputValue }
-              onChange={ this.statusButtonFunction }
-            />
-          </label>
-          <button
-            type="button"
-            data-testid="search-artist-button"
-            disabled={ statusButton }
-            onClick={ this.searchButton }
-          >
-            Pesquisar
-          </button>
-        </form>
         {loading
           ? <Loading />
           : (
-            <p>
-              Resultado de álbuns de:
-              {' '}
-              {artistName}
-            </p>
-          ) }
+            <form>
+              <label htmlFor="search-artist-input">
+                <input
+                  type="text"
+                  data-testid="search-artist-input"
+                  value={ inputValue }
+                  onChange={ this.statusButtonFunction }
+                />
+              </label>
+              <button
+                type="button"
+                data-testid="search-artist-button"
+                disabled={ statusButton }
+                onClick={ this.searchButton }
+              >
+                Pesquisar
+              </button>
+            </form>
+          )}
+        <p>
+          Resultado de álbuns de:
+          {' '}
+          {artistName}
+        </p>
       </div>
     );
   }
