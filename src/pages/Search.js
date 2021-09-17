@@ -14,7 +14,7 @@ class Search extends Component {
       artistName: '',
       loading: false,
       getAPI: false,
-      musicList: [],
+      listAlbums: [],
     });
   }
 
@@ -35,7 +35,7 @@ class Search extends Component {
     }));
     const getAPISearchMusic = await searchAlbumsAPI(inputValue);
     this.setState({
-      musicList: getAPISearchMusic,
+      listAlbums: getAPISearchMusic,
       getAPI: true,
       loading: false,
     });
@@ -43,7 +43,7 @@ class Search extends Component {
 
   render() {
     const { statusButton, inputValue, loading,
-      artistName, musicList, getAPI } = this.state;
+      artistName, listAlbums, getAPI } = this.state;
     return (
       <div data-testid="page-search">
         <Header />
@@ -75,11 +75,11 @@ class Search extends Component {
           {artistName}
         </p>
         <section>
-          {musicList.length === 0 && getAPI
+          {listAlbums.length === 0 && getAPI
             ? <p>Nenhum álbum foi encontrado</p>
             : (
               <ul>
-                {musicList.map((album) => (
+                {listAlbums.map((album) => (
                   <Link
                     key={ album.collectionId }
                     to={ `/album/${album.collectionId}` }
