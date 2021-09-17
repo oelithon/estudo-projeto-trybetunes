@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
+import MusicCard from '../components/MusicCard';
 
 class Album extends Component {
   constructor() {
@@ -36,7 +37,13 @@ class Album extends Component {
         <h2 data-testid="artist-name">{artistName}</h2>
         <p data-testid="album-name">{collectionName}</p>
         <ul>
-          {musicList.map((music) => <li key={ music.trackId }>{ music.trackName }</li>)}
+          {musicList.map((music) => (
+            <MusicCard
+              key={ music.trackId }
+              name={ music.trackName }
+              previewUrl={ music.previewUrl }
+            />
+          ))}
         </ul>
       </div>
     );
