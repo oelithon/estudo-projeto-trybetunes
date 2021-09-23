@@ -9,7 +9,7 @@ class Album extends Component {
     super();
 
     this.state = {
-      listAlbums: [],
+      songs: [],
       album: [],
     };
   }
@@ -20,32 +20,35 @@ class Album extends Component {
 
   getMusicsAPI = async () => {
     const { match: { params: { id } } } = this.props;
-    const allAlbums = await getMusics(id);
+    const musicsAlbums = await getMusics(id);
     this.setState({
-      listAlbums: allAlbums,
-      album: allAlbums[0],
+      songs: musicsAlbums,
+      album: musicsAlbums[0],
     });
   }
 
   render() {
-    const { listAlbums, album } = this.state;
-    const musicList = listAlbums.slice(1);
+    const { songs, album } = this.state;
+    const musicList = songs.slice(1);
     const { artistName, collectionName } = album;
     return (
       <div data-testid="page-album">
         <Header />
-        <h2 data-testid="artist-name">{artistName}</h2>
-        <p data-testid="album-name">{collectionName}</p>
-        <ul>
-          {musicList.map((music) => (
-            <MusicCard
-              key={ music.trackId }
-              name={ music.trackName }
-              previewUrl={ music.previewUrl }
-              trackId={ music.trackId }
-            />
-          ))}
-        </ul>
+        <section>
+          <h2 data-testid="artist-name">{ artistName }</h2>
+          <p data-testid="album-name">{ collectionName }</p>
+          <ul>
+            { musicList.map((music) => (
+              <MusicCard
+                dataMusic={ music }
+                key={ music.trackId }
+                trackName={ music.trackName }
+                previewUrl={ music.previewUrl }
+                trackId={ music.trackId }
+              />
+            )) }
+          </ul>
+        </section>
       </div>
     );
   }
